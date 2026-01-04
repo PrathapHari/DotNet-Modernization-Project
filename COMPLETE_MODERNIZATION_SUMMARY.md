@@ -1,4 +1,4 @@
-# 🚀 Modernizing Leagacy .NET Application
+# 🚀 Modernizing Legacy .NET Application
 
 ## 📋 Executive Overview
 
@@ -928,4 +928,5 @@ Modern .NET 10 Microservices Architecture
 **Architecture**: Microservices  
 
 **🎊 Modernization Complete! 🎊**
+
 
