@@ -39,11 +39,11 @@ builder.Services.AddHttpClient<StoreInfoApiClient>(client =>
 
 // Add health checks
 builder.Services.AddHealthChecks()
-    .AddUrlGroup(new Uri("https+http://eshoplite-products"), 
-        name: "products-api", 
+    .AddUrlGroup(new Uri("https+http://eshoplite-products"),
+        name: "products-api",
         timeout: TimeSpan.FromSeconds(5))
-    .AddUrlGroup(new Uri("https+http://eshoplite-storeinfo"), 
-        name: "storeinfo-api", 
+    .AddUrlGroup(new Uri("https+http://eshoplite-storeinfo"),
+        name: "storeinfo-api",
         timeout: TimeSpan.FromSeconds(5));
 
 // Add response compression

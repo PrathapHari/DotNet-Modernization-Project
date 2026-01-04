@@ -1,4 +1,3 @@
-using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace eShopLite.Store.ApiClients;
@@ -16,7 +15,7 @@ public abstract class ApiClient
     {
         _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        
+
         _jsonOptions = new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true
@@ -31,13 +30,13 @@ public abstract class ApiClient
         try
         {
             _logger.LogInformation("GET request to: {RequestUri}", requestUri);
-            
+
             var response = await _httpClient.GetAsync(requestUri, cancellationToken);
             response.EnsureSuccessStatusCode();
-            
+
             var result = await response.Content.ReadFromJsonAsync<T>(_jsonOptions, cancellationToken);
             _logger.LogInformation("Successfully retrieved data from: {RequestUri}", requestUri);
-            
+
             return result;
         }
         catch (HttpRequestException ex)

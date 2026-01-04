@@ -1,6 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using eShopLite.StoreInfo.Data;
-using eShopLite.StoreInfo.Models;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,9 +61,9 @@ app.MapGet("/api/stores/{id:int}", async (int id, StoreInfoDbContext db, ILogger
 {
     logger.LogInformation("Retrieving store with ID: {StoreId}", id);
     var store = await db.Stores.FindAsync(id);
-    
-    return store is not null 
-        ? Results.Ok(store) 
+
+    return store is not null
+        ? Results.Ok(store)
         : Results.NotFound(new { Message = $"Store with ID {id} not found" });
 })
 .WithName("GetStoreById")
@@ -75,13 +74,13 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<StoreInfoDbContext>();
     var startupLogger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-    
+
     try
     {
         startupLogger.LogInformation("========================================");
         startupLogger.LogInformation("Initializing StoreInfo database...");
         await db.Database.EnsureCreatedAsync();
-        
+
         var storeCount = await db.Stores.CountAsync();
         startupLogger.LogInformation("StoreInfo database initialized successfully");
         startupLogger.LogInformation("Database contains {Count} stores", storeCount);

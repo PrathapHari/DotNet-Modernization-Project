@@ -1,6 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using eShopLite.Products.Data;
-using eShopLite.Products.Models;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -61,9 +60,9 @@ app.MapGet("/api/products/{id:int}", async (int id, ProductDbContext db, ILogger
 {
     logger.LogInformation("Retrieving product with ID: {ProductId}", id);
     var product = await db.Products.FindAsync(id);
-    
-    return product is not null 
-        ? Results.Ok(product) 
+
+    return product is not null
+        ? Results.Ok(product)
         : Results.NotFound(new { Message = $"Product with ID {id} not found" });
 })
 .WithName("GetProductById")
@@ -74,13 +73,13 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ProductDbContext>();
     var startupLogger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-    
+
     try
     {
         startupLogger.LogInformation("========================================");
         startupLogger.LogInformation("Initializing Products database...");
         await db.Database.EnsureCreatedAsync();
-        
+
         var productCount = await db.Products.CountAsync();
         startupLogger.LogInformation("Products database initialized successfully");
         startupLogger.LogInformation("Database contains {Count} products", productCount);

@@ -1,5 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using eShopLite.Products.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace eShopLite.Products.Data;
 
